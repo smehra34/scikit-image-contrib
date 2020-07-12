@@ -5,9 +5,10 @@ import numpy as np
 
 from skimage_contrib.color import contrast_difference
 
+
 def test_contrast_difference_errors():
 
-    x = np.ones((10,10))
+    x = np.ones((10, 10))
     # shape mismatch
     with testing.raises(ValueError):
         contrast_difference(x[:-1], x)
@@ -16,13 +17,14 @@ def test_contrast_difference_errors():
     with testing.raises(ValueError):
         contrast_difference(x, x, window=2)
     with testing.raises(ValueError):
-        contrast_difference(x, x, window=(2,2,2))
+        contrast_difference(x, x, window=(2, 2, 2))
     with testing.raises(ValueError):
-        contrast_difference(x, x, window=(2,3))
+        contrast_difference(x, x, window=(2, 3))
 
     # invalid channels
     with testing.raises(ValueError):
         contrast_difference(x, x, multichannel=True)
+
 
 def test_contrast_difference_grayscale():
 
@@ -36,8 +38,9 @@ def test_contrast_difference_grayscale():
     assert_equal(contrast_difference(image1, image3), 0)
 
     assert_equal(contrast_difference(image1, image3),
-                 contrast_difference(image1.reshape(10,10),
-                                     image3.reshape((10,10))))
+                 contrast_difference(image1.reshape(10, 10),
+                                     image3.reshape((10, 10))))
+
 
 def test_contrast_difference_multichannel():
 
@@ -55,6 +58,7 @@ def test_contrast_difference_multichannel():
                  contrast_difference(rgba2rgb(rgba_X), rgba2rgb(rgba_Y),
                                      multichannel=True))
 
+
 def test_contrast_difference_windows():
 
     N = 10
@@ -63,11 +67,11 @@ def test_contrast_difference_windows():
 
     window = (10, 5)
 
-    contrast_X = (np.std(X[:,:5]) / np.mean(X[:,:5]) +
-                  np.std(X[:,5:]) / np.mean(X[:,5:])) / 2
+    contrast_X = (np.std(X[:, :5]) / np.mean(X[:, :5]) +
+                  np.std(X[:, 5:]) / np.mean(X[:, 5:])) / 2
 
-    contrast_Y = (np.std(Y[:,:5]) / np.mean(Y[:,:5]) +
-                  np.std(Y[:,5:]) / np.mean(Y[:,5:])) / 2
+    contrast_Y = (np.std(Y[:, :5]) / np.mean(Y[:, :5]) +
+                  np.std(Y[:, 5:]) / np.mean(Y[:, 5:])) / 2
 
     assert_equal(contrast_difference(X, Y, window=window),
                  contrast_Y - contrast_X)

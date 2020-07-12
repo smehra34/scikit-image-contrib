@@ -22,6 +22,7 @@ from skimage.color import rgb2gray, rgba2rgb
 from skimage.util import view_as_blocks
 from skimage._shared.utils import check_shape_equality
 
+
 def contrast_difference(image_true, image_test, window=None,
                         multichannel=False):
     """Determine the contrast difference between two images.
@@ -82,11 +83,11 @@ def contrast_difference(image_true, image_test, window=None,
 
         if multichannel:
             if image.shape[-1] not in (3, 4):
-                    msg = ("The last axis of the input image is interpreted as "
-                           "channels. Input image with shape {0} has {1} "
-                           "channels in last axis. ``contrast_difference`` is "
-                           "implemented for RGB and RGBA images only (if "
-                           "mutichannel is true).")
+                msg = ("The last axis of the input image is interpreted as "
+                       "channels. Input image with shape {0} has {1} "
+                       "channels in last axis. ``contrast_difference`` is "
+                       "implemented for RGB and RGBA images only (if "
+                       "mutichannel is true).")
                     raise ValueError(msg.format(image.shape, image.shape[-1]))
 
             if image.shape[-1] == 4:
@@ -105,7 +106,7 @@ def contrast_difference(image_true, image_test, window=None,
         std_windows = np.std(flat_windows, axis=-1)
 
         epsilon = np.finfo(mean_windows.dtype).eps
-        mean_windows = np.where(mean_windows==0, epsilon, mean_windows)
+        mean_windows = np.where(mean_windows == 0, epsilon, mean_windows)
         contrast = std_windows / mean_windows
 
         contrasts.append(np.mean(contrast))
