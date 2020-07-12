@@ -88,7 +88,7 @@ def contrast_difference(image_true, image_test, window=None,
                        "channels in last axis. ``contrast_difference`` is "
                        "implemented for RGB and RGBA images only (if "
                        "mutichannel is true).")
-                    raise ValueError(msg.format(image.shape, image.shape[-1]))
+                raise ValueError(msg.format(image.shape, image.shape[-1]))
 
             if image.shape[-1] == 4:
                 image = rgba2rgb(image)
